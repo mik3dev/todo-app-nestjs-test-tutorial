@@ -40,6 +40,8 @@ export class TodosService {
   }
 
   async remove(id: string) {
-    return await this.model.findByIdAndDelete(id);
+    const todo = await this.model.findByIdAndDelete(id);
+    if (!todo) throw new NotFoundException(`Todo with id ${id} not found`);
+    return todo;
   }
 }
